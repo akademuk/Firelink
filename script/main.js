@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.querySelector(".overlay");
   const body = document.body;
 
-  const animationDuration = 300; // Время CSS-анимации в миллисекундах
+  const animationDuration = 300; 
 
   const openMenu = () => {
     const scrollY = window.scrollY;
@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
     menu.classList.remove("active");
     overlay.classList.remove("active");
 
-    // Ждем завершения анимации перед удалением стилей у body
     setTimeout(() => {
       body.style.position = "";
       body.style.top = "";
@@ -32,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
       body.style.overflow = "";
       window.scrollTo(0, parseInt(body.dataset.scrollY || "0"));
 
-      // Плавный скролл к якорю (если есть)
       if (targetId) {
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
@@ -64,9 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
-
-
 
 // Slider Categories
 document.addEventListener("DOMContentLoaded", function () {
