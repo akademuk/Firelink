@@ -5,25 +5,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.querySelector(".overlay");
   const body = document.body;
 
+  const animationDuration = 300; // Время анимации в миллисекундах (из CSS transition)
+
   const toggleMenu = () => {
     const isMenuActive = burger.classList.contains("active");
 
     if (isMenuActive) {
-    
       burger.classList.remove("active");
       menu.classList.remove("active");
       overlay.classList.remove("active");
-      body.style.position = "";
-      body.style.top = "";
-      body.style.width = "";
-      body.style.overflow = "";
-      window.scrollTo(0, parseInt(body.dataset.scrollY || "0"));
+
+      // Ждем завершения анимации перед удалением стилей body
+      setTimeout(() => {
+        body.style.position = "";
+        body.style.top = "";
+        body.style.width = "";
+        body.style.overflow = "";
+        window.scrollTo(0, parseInt(body.dataset.scrollY || "0"));
+      }, animationDuration);
     } else {
       const scrollY = window.scrollY;
-      body.dataset.scrollY = scrollY; 
+      body.dataset.scrollY = scrollY;
+
       burger.classList.add("active");
       menu.classList.add("active");
       overlay.classList.add("active");
+
       body.style.position = "fixed";
       body.style.top = `-${scrollY}px`;
       body.style.width = "100%";
@@ -32,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   burger.addEventListener("click", toggleMenu);
-
   overlay.addEventListener("click", toggleMenu);
 
   menu.addEventListener("click", (event) => {
@@ -41,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
 
 
 // Slider Categories
