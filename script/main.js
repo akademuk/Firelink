@@ -5,22 +5,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.querySelector(".overlay");
   const body = document.body;
 
-  const toggleMenu = () => {
+  const animationDuration = 300; // Время CSS-анимации в миллисекундах (должно совпадать с CSS)
+
+  const toggleMenu = (targetId = null) => {
     const isMenuActive = burger.classList.contains("active");
 
     if (isMenuActive) {
-    
+      // Закрытие меню
       burger.classList.remove("active");
       menu.classList.remove("active");
       overlay.classList.remove("active");
-      body.style.position = "";
-      body.style.top = "";
-      body.style.width = "";
-      body.style.overflow = "";
-      window.scrollTo(0, parseInt(body.dataset.scrollY || "0"));
+
+      // Ждем завершения анимации перед удалением блокировки для body
+      setTimeout(() => {
+        body.style.position = "";
+        body.style.top = "";
+        body.style.width = "";
+        body.style.overflow = "";
+        window.scrollTo(0, parseInt(body.dataset.scrollY || "0"));
+
+        // Плавный скролл к якорю после завершения анимации
+        if (targetId) {
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        }
+      }, animationDuration);
     } else {
+      // Открытие меню
       const scrollY = window.scrollY;
-      body.dataset.scrollY = scrollY; 
+      body.dataset.scrollY = scrollY;
       burger.classList.add("active");
       menu.classList.add("active");
       overlay.classList.add("active");
@@ -31,16 +49,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  burger.addEventListener("click", toggleMenu);
+  burger.addEventListener("click", () => toggleMenu());
 
-  overlay.addEventListener("click", toggleMenu);
+  overlay.addEventListener("click", () => toggleMenu());
 
   menu.addEventListener("click", (event) => {
     if (event.target.tagName === "A") {
-      toggleMenu();
+      const targetId = event.target.getAttribute("href").slice(1);
+      toggleMenu(targetId);
     }
   });
 });
+
 
 
 // Slider Categories
