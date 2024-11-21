@@ -6,10 +6,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
 
   const toggleMenu = () => {
-    burger.classList.toggle("active");
-    menu.classList.toggle("active");
-    overlay.classList.toggle("active");
-    body.classList.toggle("body-lock");
+    const isMenuActive = burger.classList.contains("active");
+
+    if (isMenuActive) {
+      // Закрытие меню
+      burger.classList.remove("active");
+      menu.classList.remove("active");
+      overlay.classList.remove("active");
+      body.style.position = "";
+      body.style.top = "";
+      body.style.width = "";
+      body.style.overflow = "";
+      window.scrollTo(0, parseInt(body.dataset.scrollY || "0"));
+    } else {
+      // Открытие меню
+      const scrollY = window.scrollY;
+      body.dataset.scrollY = scrollY; // Сохраняем текущую прокрутку
+      burger.classList.add("active");
+      menu.classList.add("active");
+      overlay.classList.add("active");
+      body.style.position = "fixed";
+      body.style.top = `-${scrollY}px`;
+      body.style.width = "100%";
+      body.style.overflow = "hidden";
+    }
   };
 
   burger.addEventListener("click", toggleMenu);
@@ -22,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
 
 // Slider Categories
 document.addEventListener("DOMContentLoaded", function () {
