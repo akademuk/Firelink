@@ -396,7 +396,8 @@ body {
       height: 213px;
       background: $secondary-color;
       -webkit-filter: blur(350px);
-              filter: blur(350px);
+      filter: blur(350px);
+      will-change: filter;
       position: absolute;
       left: 54px;
       bottom: 71px;

@@ -328,6 +328,7 @@ body.modal-open {
   height: 213px;
   background: #09b451;
   filter: blur(350px);
+  will-change: filter;
   position: absolute;
   left: 54px;
   bottom: 71px;
