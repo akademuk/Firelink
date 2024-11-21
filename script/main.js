@@ -5,61 +5,66 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.querySelector(".overlay");
   const body = document.body;
 
-  const animationDuration = 300; // Время CSS-анимации в миллисекундах (должно совпадать с CSS)
+  const animationDuration = 300; // Время CSS-анимации в миллисекундах
 
-  const toggleMenu = (targetId = null) => {
-    const isMenuActive = burger.classList.contains("active");
-
-    if (isMenuActive) {
-      // Закрытие меню
-      burger.classList.remove("active");
-      menu.classList.remove("active");
-      overlay.classList.remove("active");
-
-      // Ждем завершения анимации перед удалением блокировки для body
-      setTimeout(() => {
-        body.style.position = "";
-        body.style.top = "";
-        body.style.width = "";
-        body.style.overflow = "";
-        window.scrollTo(0, parseInt(body.dataset.scrollY || "0"));
-
-        // Плавный скролл к якорю после завершения анимации
-        if (targetId) {
-          const targetElement = document.getElementById(targetId);
-          if (targetElement) {
-            targetElement.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        }
-      }, animationDuration);
-    } else {
-      // Открытие меню
-      const scrollY = window.scrollY;
-      body.dataset.scrollY = scrollY;
-      burger.classList.add("active");
-      menu.classList.add("active");
-      overlay.classList.add("active");
-      body.style.position = "fixed";
-      body.style.top = `-${scrollY}px`;
-      body.style.width = "100%";
-      body.style.overflow = "hidden";
-    }
+  const openMenu = () => {
+    const scrollY = window.scrollY;
+    body.dataset.scrollY = scrollY;
+    burger.classList.add("active");
+    menu.classList.add("active");
+    overlay.classList.add("active");
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
   };
 
-  burger.addEventListener("click", () => toggleMenu());
+  const closeMenu = (targetId = null) => {
+    burger.classList.remove("active");
+    menu.classList.remove("active");
+    overlay.classList.remove("active");
 
-  overlay.addEventListener("click", () => toggleMenu());
+    // Ждем завершения анимации перед удалением стилей у body
+    setTimeout(() => {
+      body.style.position = "";
+      body.style.top = "";
+      body.style.width = "";
+      body.style.overflow = "";
+      window.scrollTo(0, parseInt(body.dataset.scrollY || "0"));
+
+      // Плавный скролл к якорю (если есть)
+      if (targetId) {
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }
+    }, animationDuration);
+  };
+
+  burger.addEventListener("click", () => {
+    if (burger.classList.contains("active")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  overlay.addEventListener("click", () => {
+    closeMenu();
+  });
 
   menu.addEventListener("click", (event) => {
     if (event.target.tagName === "A") {
       const targetId = event.target.getAttribute("href").slice(1);
-      toggleMenu(targetId);
+      closeMenu(targetId);
     }
   });
 });
+
 
 
 
