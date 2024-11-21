@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const isMenuActive = burger.classList.contains("active");
 
     if (isMenuActive) {
-      // Закрытие меню
+    
       burger.classList.remove("active");
       menu.classList.remove("active");
       overlay.classList.remove("active");
@@ -19,9 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
       body.style.overflow = "";
       window.scrollTo(0, parseInt(body.dataset.scrollY || "0"));
     } else {
-      // Открытие меню
       const scrollY = window.scrollY;
-      body.dataset.scrollY = scrollY; // Сохраняем текущую прокрутку
+      body.dataset.scrollY = scrollY; 
       burger.classList.add("active");
       menu.classList.add("active");
       overlay.classList.add("active");
