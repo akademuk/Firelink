@@ -322,6 +322,23 @@ body.modal-open {
     align-items: center;
   }
 }
+.hero__container::after {
+  content: "";
+  width: 213px;
+  height: 213px;
+  background: #09b451;
+  filter: blur(350px);
+  position: absolute;
+  left: 54px;
+  bottom: 71px;
+  z-index: 1;
+}
+@media (min-width: 768px) {
+  .hero__container::after {
+    bottom: -10px;
+    left: 56px;
+  }
+}
 .hero__content {
   display: flex;
   flex-direction: column;
@@ -916,6 +933,7 @@ body.modal-open {
   background-repeat: no-repeat;
   background-size: 15%;
   background-position: 10px 9px;
+  text-indent: calc(100% - 100px);
   font-family: "Poppins", sans-serif;
   color: #fff;
   font-size: 12px;

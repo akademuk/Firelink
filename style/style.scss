@@ -390,23 +390,23 @@ body {
       align-items: center;
     }
 
-    // &::after {
-    //   content: "";
-    //   width: 213px;
-    //   height: 213px;
-    //   background: $secondary-color;
-    //   -webkit-filter: blur(350px);
-    //           filter: blur(350px);
-    //   position: absolute;
-    //   left: 54px;
-    //   bottom: 71px;
-    //   z-index: 1;
+    &::after {
+      content: "";
+      width: 213px;
+      height: 213px;
+      background: $secondary-color;
+      -webkit-filter: blur(350px);
+              filter: blur(350px);
+      position: absolute;
+      left: 54px;
+      bottom: 71px;
+      z-index: 1;
 
-    //   @include respond-to($breakpoint-md) {
-    //     bottom: -10px;
-    //     left: 56px;
-    //   }
-    // }
+      @include respond-to($breakpoint-md) {
+        bottom: -10px;
+        left: 56px;
+      }
+    }
   }
 
   &__content {
@@ -1000,6 +1000,7 @@ body {
     background-repeat: no-repeat;
     background-size: 15%;
     background-position: 10px 9px;
+    text-indent: calc(100% - 100px);
     font-family: $font-poppins;
     color: $tertiary-color;
     font-size: 12px;
