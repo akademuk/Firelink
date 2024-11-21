@@ -1,37 +1,9 @@
 // Burger
 document.addEventListener("DOMContentLoaded", () => {
-  const anchorLinks = document.querySelectorAll('a[href^="#"]');
   const burger = document.querySelector(".header__burger");
   const menu = document.querySelector(".mobile-menu");
   const overlay = document.querySelector(".overlay");
   const body = document.body;
-
-  const smoothScroll = (targetElement) => {
-    if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
-
-  anchorLinks.forEach((link) => {
-    link.addEventListener("click", function (event) {
-      event.preventDefault();
-
-      const targetId = this.getAttribute("href").slice(1);
-      const targetElement = document.getElementById(targetId);
-
-      if (burger.classList.contains("active")) {
-        burger.classList.remove("active");
-        menu.classList.remove("active");
-        overlay.classList.remove("active");
-        body.classList.remove("body-lock");
-      }
-
-      smoothScroll(targetElement);
-    });
-  });
 
   const toggleMenu = () => {
     burger.classList.toggle("active");
