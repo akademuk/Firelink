@@ -1000,7 +1000,7 @@ body {
     background-repeat: no-repeat;
     background-size: 15%;
     background-position: 10px 9px;
-    text-indent: calc(100% - 100px);
+    direction: rtl;
     font-family: $font-poppins;
     color: $tertiary-color;
     font-size: 12px;
