@@ -1,0 +1,1377 @@
+// Color
+$primary-color: #000;
+$secondary-color: #09b451;
+$text-color: #333;
+$tertiary-color: #fff;
+$background-color: #e1ffee;
+
+// Font Families
+$font-open-sans: "OpenSans", sans-serif;
+$font-poppins: "Poppins", sans-serif;
+$font-sf-pro-display: "SFProDisplay", sans-serif;
+$font-source-sans-pro: "SourceSansPro", sans-serif;
+
+$breakpoint-sm: 429px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1200px;
+
+@mixin respond-to($breakpoint) {
+  @media (min-width: #{$breakpoint}) {
+    @content;
+  }
+}
+
+@mixin respond-do($breakpoint) {
+  @media (max-width: #{$breakpoint}) {
+    @content;
+  }
+}
+
+@mixin flex-center($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin wrapper {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  @include respond-to($breakpoint-md) {
+    padding: 0;
+  }
+}
+
+@mixin heading-style {
+  color: $text-color;
+  font-size: 16px;
+  font-weight: 500;
+
+  @include respond-to($breakpoint-md) {
+    font-weight: 600;
+    font-size: 32px;
+  }
+}
+
+@mixin green-button {
+  padding: 12px 24px;
+  border-radius: 5px;
+  background: $secondary-color;
+  border: 1px solid transparent;
+  color: $tertiary-color;
+  font-family: $font-source-sans-pro;
+  font-weight: 600;
+  line-height: 1.25;
+  transition: all 0.4s;
+
+  &:hover {
+    transition: all 0.4s;
+    background: transparent;
+    border: 1px solid $secondary-color;
+    color: $secondary-color;
+  }
+}
+
+@mixin white-button {
+  padding: 12px 18px;
+  border-radius: 3px;
+  background: $tertiary-color;
+  border: none;
+  color: $secondary-color;
+  font-family: $font-source-sans-pro;
+  font-weight: 600;
+  transition: all 0.4s;
+
+  &:hover {
+    transition: all 0.4s;
+    background: $secondary-color;
+    color: $tertiary-color;
+  }
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-family: $font-poppins, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: $primary-color;
+  scrollbar-gutter: stable;
+
+  &.body-lock {
+    overflow: hidden;
+  }
+
+  &.modal-open {
+    overflow: hidden;
+  }
+}
+
+* {
+  outline: none;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  @include wrapper;
+}
+
+.heading-style {
+  @include heading-style;
+}
+
+// Header
+.header {
+  height: 81px;
+  padding: 20px 4px 30px;
+  box-shadow: 0px 4px 8px 0px rgba(200, 200, 200, 0.25);
+
+  @include respond-to($breakpoint-md) {
+    height: 100px;
+    padding: 10px 24px;
+    box-shadow: none;
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    @include respond-to($breakpoint-md) {
+      justify-content: space-between;
+    }
+  }
+
+  &__burger {
+    width: 22px;
+    height: 17px;
+    cursor: pointer;
+    margin-right: 17px;
+    @include flex-center;
+    position: relative;
+    z-index: 10;
+
+    @include respond-to($breakpoint-md) {
+      display: none;
+    }
+
+    &-lines {
+      width: 100%;
+      height: 1.5px;
+      background-color: $primary-color;
+      position: relative;
+      transition: all 0.3s ease-in-out;
+      border-radius: 1.5px;
+
+      &::before,
+      &::after {
+        content: "";
+        width: 100%;
+        height: 1.5px;
+        border-radius: 1.5px;
+        background-color: $primary-color;
+        position: absolute;
+        left: 0;
+        transition: all 0.4s ease-in-out;
+      }
+
+      &::before {
+        top: -8px;
+      }
+
+      &::after {
+        bottom: -8px;
+      }
+    }
+
+    &.active &-lines {
+      background-color: transparent;
+
+      &::before {
+        transform: rotate(45deg);
+        top: 0;
+      }
+
+      &::after {
+        transform: rotate(-45deg);
+        bottom: 0;
+      }
+    }
+  }
+
+  &__nav {
+    display: none;
+
+    @include respond-to($breakpoint-md) {
+      display: flex;
+    }
+
+    @include respond-to($breakpoint-lg) {
+      margin-left: -38px;
+    }
+  }
+
+  &__menu {
+    @include respond-to($breakpoint-md) {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+
+      &-item {
+        padding: 8px;
+
+        @include respond-to($breakpoint-lg) {
+          padding: 8px 14px;
+        }
+      }
+
+      &-link {
+        color: rgba(64, 64, 64, 0.8);
+        text-align: center;
+        font-family: $font-open-sans;
+        font-weight: 600;
+        line-height: 48px;
+        letter-spacing: -0.32px;
+        text-decoration: none;
+        position: relative;
+
+        &::before {
+          content: "";
+          background: $secondary-color;
+          height: 1px;
+          width: 0;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          transition: all 0.4s;
+        }
+
+        &:hover {
+          &::before {
+            width: 100%;
+            transition: all 0.4s;
+          }
+        }
+      }
+    }
+  }
+
+  &__actions {
+    display: none;
+
+    @include respond-to($breakpoint-lg) {
+      display: flex;
+      gap: 8px;
+    }
+  }
+
+  &__logo {
+    position: relative;
+    z-index: 4;
+    a {
+      position: relative;
+      font-family: $font-source-sans-pro;
+      font-size: 23.358px;
+      color: $primary-color;
+      font-weight: 600;
+      letter-spacing: -0.8px;
+      text-decoration: none;
+
+      @include respond-to($breakpoint-lg) {
+        font-size: 32.8px;
+        letter-spacing: -1.5px;
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        background: $secondary-color;
+        width: 4.273px;
+        height: 4.273px;
+        border-radius: 50%;
+        position: absolute;
+        top: 4px;
+
+        @include respond-to($breakpoint-lg) {
+          width: 6px;
+          height: 6px;
+        }
+      }
+
+      &::before {
+        right: 9px;
+
+        @include respond-to($breakpoint-lg) {
+          right: 10px;
+        }
+      }
+
+      &::after {
+        right: 22px;
+
+        @include respond-to($breakpoint-lg) {
+          right: 29px;
+        }
+      }
+    }
+  }
+
+  &__mobile-actions {
+    margin-left: auto;
+
+    @include respond-to($breakpoint-md) {
+      margin-left: 0;
+    }
+
+    @include respond-to($breakpoint-lg) {
+      display: none;
+    }
+
+    .header__button--authorization {
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+  }
+
+  &__button--search {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-right: 6px;
+  }
+
+  &__button--register {
+    @include green-button;
+  }
+
+  &__button--login {
+    @include white-button;
+  }
+}
+
+// Hero Section
+.hero {
+  padding: 10px 24px 10px 0;
+
+  @include respond-to($breakpoint-md) {
+    padding: 12px 24px 0 24px;
+  }
+
+  &__container {
+    background: linear-gradient(
+      to right,
+      #ffffff calc(100% - 107px),
+      #e4ffff 107px
+    );
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    padding: 67px 40px 20px 24px;
+    overflow: hidden;
+    position: relative;
+
+    @include respond-to($breakpoint-md) {
+      margin-bottom: 84px;
+    }
+
+    @include respond-to($breakpoint-lg) {
+      padding: 58px 40px 40px 60px;
+      border-radius: 50px;
+      flex-direction: row;
+      gap: 120px;
+      align-items: center;
+    }
+
+    &::after {
+      content: "";
+      width: 213px;
+      height: 213px;
+      background: $secondary-color;
+      -webkit-filter: blur(350px);
+      filter: blur(350px);
+      will-change: filter;
+      position: absolute;
+      left: 54px;
+      bottom: 71px;
+      z-index: 1;
+
+      @include respond-to($breakpoint-md) {
+        bottom: -10px;
+        left: 56px;
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 39px;
+    position: relative;
+    z-index: 2;
+
+    @include respond-to($breakpoint-md) {
+      max-width: 589px;
+      width: 100%;
+    }
+  }
+
+  &__title {
+    font-size: 32px;
+    font-weight: 700;
+
+    @include respond-to($breakpoint-md) {
+      font-size: 45px;
+    }
+
+    @include respond-to($breakpoint-xl) {
+      font-size: 60px;
+    }
+
+    .hero__highlight {
+      background: transparent;
+      color: $secondary-color;
+
+      @include respond-to($breakpoint-md) {
+        font-size: 45px;
+      }
+
+      @include respond-to($breakpoint-xl) {
+        font-size: 60px;
+      }
+    }
+  }
+
+  &__button {
+    @include green-button;
+    padding: 19px 42px;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+  }
+
+  &__visual {
+    position: relative;
+    z-index: 2;
+  }
+
+  &__image {
+    width: 260.06px;
+    height: 306.521px;
+    border-radius: 24.136px 24.136px 60.339px 24.136px;
+    overflow: hidden;
+    margin-left: auto;
+
+    @include respond-to($breakpoint-md) {
+      width: 431px;
+      height: 508px;
+      border-radius: 40px 40px 100px 40px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+  }
+
+  &__instructors {
+    position: absolute;
+    right: 191px;
+    bottom: 56px;
+    display: flex;
+    width: 142.362px;
+    padding: 9.605px 12.85px 6.572px 13.154px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    border-radius: 7.607px 7.607px 16.301px 7.607px;
+    background: $tertiary-color;
+    box-shadow: 0px 0px 37.619px 0px rgba(112, 112, 112, 0.25);
+
+    @include respond-do($breakpoint-sm) {
+      right: auto;
+      left: 10px;
+    }
+
+    @include respond-to($breakpoint-md) {
+      width: 262px;
+      padding: 17.677px 23.649px 12.095px 24.208px;
+      border-radius: 14px 14px 30px 14px;
+      box-shadow: 0px 0px 69.233px 0px rgba(112, 112, 112, 0.25);
+      right: 314px;
+      bottom: 93px;
+      gap: 18px;
+    }
+  }
+
+  &__subtitle {
+    color: $text-color;
+    text-align: center;
+    font-size: 10.867px;
+    font-weight: 600;
+
+    .hero__highlight {
+      background: transparent;
+      color: $secondary-color;
+      @include respond-to($breakpoint-md) {
+        font-size: 20px;
+      }
+    }
+
+    @include respond-to($breakpoint-md) {
+      font-size: 20px;
+    }
+  }
+
+  &__avatars {
+    @include flex-center;
+    padding-left: 51px;
+
+    @include respond-to($breakpoint-md) {
+      padding-left: 86px;
+    }
+  }
+
+  &__avatar {
+    width: 27.168px;
+    height: 27.168px;
+
+    @include respond-to($breakpoint-md) {
+      width: 50px;
+      height: 50px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+
+    &--2 {
+      transform: translateX(-10px);
+
+      @include respond-to($breakpoint-md) {
+        transform: translateX(-18px);
+      }
+    }
+
+    &--3 {
+      transform: translateX(-22px);
+
+      @include respond-to($breakpoint-md) {
+        transform: translateX(-39px);
+      }
+    }
+
+    &--4 {
+      transform: translateX(-33px);
+
+      @include respond-to($breakpoint-md) {
+        transform: translateX(-60px);
+      }
+    }
+
+    &--5 {
+      transform: translateX(-45px);
+      @include respond-to($breakpoint-md) {
+        transform: translateX(-81px);
+      }
+    }
+  }
+
+  &__students {
+    position: absolute;
+    bottom: 20px;
+    right: -12px;
+    width: 77.837px;
+    border-radius: 4.155px 4.155px 10.389px 4.155px;
+    background: $tertiary-color;
+    box-shadow: 0px 0px 25.764px 0px rgba(112, 112, 112, 0.25);
+    padding: 9px 8px 4px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include respond-to($breakpoint-md) {
+      width: 129px;
+      border-radius: 6.887px 6.887px 17.217px 6.887px;
+      box-shadow: 0px 0px 42.698px 0px rgba(112, 112, 112, 0.25);
+      bottom: 32px;
+      padding: 15px 13px 8px 13px;
+      right: -19px;
+    }
+
+    &-icon {
+      @include flex-center;
+      width: 18.102px;
+      height: 18.102px;
+      padding: 4.224px;
+      border-radius: 18.102px;
+      background: $background-color;
+      margin-bottom: 2px;
+
+      @include respond-to($breakpoint-md) {
+        width: 30px;
+        height: 30px;
+        padding: 7px;
+        border-radius: 30px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: contain;
+        object-fit: contain;
+      }
+    }
+
+    &-count {
+      color: $secondary-color;
+      font-size: 14.481px;
+      font-weight: 600;
+
+      @include respond-to($breakpoint-md) {
+        font-size: 24px;
+      }
+    }
+
+    &-text {
+      color: $text-color;
+      text-align: center;
+      font-size: 7.241px;
+      font-weight: 500;
+      line-height: 1.6;
+
+      @include respond-to($breakpoint-md) {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+// Advantages Section
+.advantages {
+  margin-top: 34px;
+
+  @include respond-to($breakpoint-md) {
+    margin-top: 0;
+    padding: 0 24px;
+  }
+
+  &__container {
+    @include respond-to($breakpoint-md) {
+      max-width: 1227px;
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  &-list {
+    display: flex;
+    gap: 24px 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @include respond-to($breakpoint-md) {
+      gap: 48px;
+    }
+  }
+
+  &-item {
+    display: flex;
+    padding: 8.949px 4.254px 9.257px 15.213px;
+    align-items: center;
+    gap: 11px;
+    border-radius: 4.474px;
+    background: #dff;
+    font-size: 14.318px;
+    width: calc(50% - 8px);
+    white-space: nowrap;
+    min-width: -webkit-max-content;
+    min-width: -moz-max-content;
+    min-width: max-content;
+
+    @media (max-width: 425px) {
+      flex: 1;
+    }
+
+    @include respond-to($breakpoint-md) {
+      width: calc(20% - 62px);
+      padding: 10px 22px 10px 17px;
+      gap: 12px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    &-img {
+      @include flex-center;
+      width: 35.795px;
+      min-width: 35.795px;
+      height: 35.795px;
+      padding: 7.159px;
+      border-radius: 44.743px;
+      background: $secondary-color;
+
+      @include respond-to($breakpoint-md) {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        border-radius: 50px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: contain;
+        object-fit: contain;
+      }
+    }
+
+    &--1 {
+      order: 3;
+
+      @include respond-to($breakpoint-md) {
+        order: 1;
+      }
+    }
+
+    &--2 {
+      order: 4;
+
+      @include respond-to($breakpoint-md) {
+        order: 2;
+      }
+    }
+
+    &--3 {
+      order: 1;
+
+      @include respond-to($breakpoint-md) {
+        order: 3;
+      }
+    }
+
+    &--4 {
+      order: 2;
+
+      @include respond-to($breakpoint-md) {
+        order: 4;
+      }
+    }
+
+    &--5 {
+      order: 5;
+    }
+  }
+}
+
+// Categories Section
+.categories {
+  padding: 124px 0 0 0;
+
+  @include respond-to($breakpoint-md) {
+    padding: 140px 0 98px 0;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @include respond-to($breakpoint-md) {
+      gap: 64px;
+      padding: 0;
+      overflow: hidden;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+    padding: 0;
+
+    @include respond-to($breakpoint-md) {
+      padding: 0 24px;
+    }
+  }
+
+  &__title {
+    max-width: 225px;
+    width: 100%;
+
+    @include respond-to($breakpoint-md) {
+      max-width: 100%;
+    }
+  }
+
+  &__link {
+    white-space: nowrap;
+    color: $text-color;
+    font-size: 14px;
+    text-decoration: none;
+    padding-top: 3px;
+
+    @include respond-to($breakpoint-md) {
+      font-size: 24px;
+      padding-top: 8px;
+    }
+  }
+
+  &__swiper {
+    padding-right: 24px;
+    overflow: hidden;
+    width: calc(100% + 48px);
+    margin-left: -24px;
+    padding: 0 24px;
+    @include respond-to($breakpoint-md) {
+      padding: 0;
+      margin: 0 0 0 4px;
+    }
+  }
+
+  &__slide {
+    max-width: 116px;
+    height: 133px;
+
+    @include respond-to($breakpoint-md) {
+      max-width: 291px;
+      height: 432px;
+    }
+  }
+
+  &__card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+
+    @include respond-to($breakpoint-md) {
+      border-radius: 0;
+
+      &:hover {
+        &::after {
+          opacity: 0;
+        }
+
+        img {
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    &-img {
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        transition: transform 0.4s;
+      }
+    }
+
+    &::after {
+      content: "";
+      background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+      );
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      transition: opacity 0.4s;
+      opacity: 1;
+    }
+
+    &-name {
+      color: $tertiary-color;
+      font-weight: 600;
+      font-size: 14px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+
+      @include respond-to($breakpoint-md) {
+        font-size: 32px;
+        top: auto;
+        bottom: 10px;
+        left: 24px;
+        transform: none;
+      }
+    }
+  }
+
+  &__button {
+    display: none;
+    @include respond-to($breakpoint-md) {
+      position: absolute;
+      top: 44%;
+      transform: translateY(-44%);
+      z-index: 3;
+      @include flex-center;
+      width: 60px;
+      height: 60px;
+      padding: 15px;
+      border-radius: 100px;
+      background: $tertiary-color;
+      cursor: pointer;
+    }
+  }
+
+  &__button-next {
+    right: 76px;
+  }
+
+  &__button-prev {
+    left: 24px;
+  }
+
+  .swiper-button-disabled {
+    cursor: auto;
+    img {
+      -webkit-filter: brightness(0) saturate(100%) invert(14%) sepia(6%)
+        saturate(19%) hue-rotate(314deg) brightness(98%) contrast(82%);
+      filter: brightness(0) saturate(100%) invert(14%) sepia(6%) saturate(19%)
+        hue-rotate(314deg) brightness(98%) contrast(82%);
+    }
+  }
+}
+
+// Courses Section
+.course {
+  padding-bottom: 48px;
+  padding-top: 56px;
+
+  @include respond-to($breakpoint-md) {
+    padding: 0 24px 110px 24px;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @include respond-to($breakpoint-md) {
+      gap: 64px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include respond-to($breakpoint-md) {
+      padding: 0 0 0 9px;
+    }
+  }
+
+  &__title {
+    text-transform: capitalize;
+  }
+
+  &__select {
+    padding: 4px 8px;
+    border-radius: 28.295px;
+    text-align: right;
+    background: url(../image/select-arrow.svg), $secondary-color;
+    background-repeat: no-repeat;
+    background-size: 15%;
+    background-position: 10px 9px;
+    direction: rtl;
+    font-family: $font-poppins;
+    color: $tertiary-color;
+    font-size: 12px;
+    border: none;
+    width: 77px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    option {
+      font-family: $font-poppins;
+      font-size: 12px;
+      @include respond-to($breakpoint-md) {
+        font-size: 18px;
+      }
+    }
+
+    @include respond-to($breakpoint-md) {
+      padding: 8px 16px;
+      width: 129px;
+      font-size: 18px;
+      height: 46px;
+      background-position: 22px 17px;
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    @include respond-to($breakpoint-md) {
+      gap: 42px 32px;
+    }
+  }
+
+  &__card {
+    width: calc(50% - 8px);
+    border-radius: 5px;
+    background: $tertiary-color;
+    box-shadow: 0px 0px 20px 0px rgba(203, 203, 203, 0.25);
+    overflow: hidden;
+
+    @include respond-to($breakpoint-md) {
+      width: calc(33.33% - 22px);
+    }
+
+    &-image {
+      width: 100%;
+      height: 103px;
+
+      @include respond-to($breakpoint-md) {
+        height: 215px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+      }
+    }
+
+    &-content {
+      padding: 5px 12px 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+
+      @include respond-to($breakpoint-md) {
+        padding: 24px;
+        gap: 37px;
+        height: calc(100% - 215px);
+        justify-content: space-between;
+      }
+    }
+
+    &-title-box {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    &-title {
+      color: $text-color;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      text-transform: capitalize;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      padding-right: 28px;
+
+      @include respond-to($breakpoint-md) {
+        font-size: 24px;
+        -webkit-line-clamp: 3;
+        padding-right: 0;
+        line-height: 1.5;
+        padding-right: 32px;
+      }
+    }
+
+    &-star-box {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      position: absolute;
+      top: 3px;
+      right: 4px;
+
+      @include respond-to($breakpoint-md) {
+        top: 8px;
+        right: 0px;
+      }
+    }
+
+    &-star-text {
+      color: $primary-color;
+      font-size: 8px;
+
+      @include respond-to($breakpoint-md) {
+        font-size: 16px;
+      }
+    }
+
+    &-star-icon {
+      width: 8px;
+      height: 8px;
+      -o-object-fit: cover;
+      object-fit: cover;
+
+      @include respond-to($breakpoint-md) {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    &-info {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 12px;
+
+      @include respond-to($breakpoint-md) {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    &-price {
+      color: $secondary-color;
+      font-size: 14px;
+      font-weight: 500;
+
+      @include respond-to($breakpoint-md) {
+        font-size: 24px;
+        font-weight: 600;
+      }
+    }
+
+    &-info-box {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+
+      @include respond-to($breakpoint-md) {
+        gap: 20px;
+      }
+    }
+
+    &-details {
+      color: $text-color;
+      font-size: 12px;
+
+      @include respond-to($breakpoint-md) {
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+
+    &-students {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      color: $text-color;
+      font-size: 12px;
+
+      @include respond-to($breakpoint-md) {
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      &::before {
+        content: "";
+        background: url(../image/students.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 12px;
+        height: 12px;
+
+        @include respond-to($breakpoint-md) {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+}
+
+// Mobile menu
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 2;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 320px;
+  min-height: 100vh;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  background: $tertiary-color;
+  z-index: 3;
+  transition: all 0.4s ease-in-out;
+  padding: 81px 16px 16px 16px;
+
+  &.active {
+    left: 0;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &-link {
+    color: rgba(64, 64, 64, 0.8);
+    text-align: center;
+    font-family: $font-open-sans;
+    font-weight: 600;
+    line-height: 48px;
+    letter-spacing: -0.32px;
+    text-decoration: none;
+    position: relative;
+  }
+}
+
+// Modal
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  &.active {
+    display: flex;
+  }
+
+  &__content {
+    padding: 24px;
+    background: linear-gradient(
+      to right,
+      #ffffff calc(100% - 107px),
+      #e4ffff 107px
+    );
+    border-radius: 5px;
+    position: relative;
+    width: 576px;
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        width: 100%;
+        input {
+          border-radius: 4px;
+          border: 1.5px solid #d6d6d6;
+          background: #fff;
+          height: 52px;
+          padding: 16px;
+          font-family: $font-poppins;
+          color: $primary-color;
+          width: 100%;
+
+          &::-webkit-input-placeholder {
+            font-family: $font-poppins;
+            color: $primary-color;
+          }
+
+          &::-moz-placeholder {
+            font-family: $font-poppins;
+            color: $primary-color;
+          }
+
+          &:-ms-input-placeholder {
+            font-family: $font-poppins;
+            color: $primary-color;
+          }
+
+          &::-ms-input-placeholder {
+            font-family: $font-poppins;
+            color: $primary-color;
+          }
+
+          &::placeholder {
+            font-family: $font-poppins;
+            color: $primary-color;
+          }
+        }
+
+        button {
+          @include green-button;
+          width: 100%;
+        }
+      }
+    }
+
+    p {
+      color: rgba(64, 64, 64, 0.8);
+      text-align: center;
+      font-family: $font-open-sans;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 48px;
+      letter-spacing: -0.32px;
+
+      span {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+}
+
